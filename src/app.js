@@ -1,18 +1,22 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-app.use(cors());
-
 require('dotenv').config();
 
-const aiRoutes = require('./routes/ai.routes.js');
+const corsOptions = {
+  origin: 'https://ai-code-reviewer-fronted.vercel.app', 
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions)); 
 app.use(express.json());
+
+const aiRoutes = require('./routes/ai.routes.js');
 
 app.get("/", (req, res) => {
     res.send("hello world!");
-})
+});
 
-app.use("/ai",aiRoutes)
-
+app.use("/ai", aiRoutes);
 
 module.exports = app;
